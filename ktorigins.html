@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>K'torigins!</title>
+    <link href="./css/kstyles.css" rel="stylesheet" type="text/css">
+    <script src="./js/p5.js" defer></script>
+    <script src="./js/ktorigins.js" defer></script>
+    <meta charset="utf-8"/>
+  </head>
+  
+  <body>
+    <div id="wrapper">
+      
+      <!-- LOADING -->
+      <div id="loading" style="display:none;">
+        <h1>Loading...</h1>
+        <img src="https://media.giphy.com/media/137uPqnSre7ORq/giphy.gif">
+      </div>
+      
+      <!-- LOBBY -->
+      <div id="lobby-container">
+        
+        <div id="logo" class="fant-font">
+          <img src="http://ktah.cs.lmu.edu/assets/site-accents/ktahLogo.png">
+          <p>[ ORIGINS ]</p>
+        </div>
+        <br/>
+        
+        <div id="lobby-options">
+          <h2>Where the Horror Began!</h2>
+          <hr/>
+          <br/>
+          <p>K'tah! Origins (Project Name: K'torigins) takes us back to the beginning of the outbreak... before our heroes met, before the giant boulder became sentient, and before a 3rd dimension was
+            added to reality. In K'torigins, you play as one of our isolated heroes scrambling to survive the onslought of the zombie horde... in 2D!</p>
+          <br/>
+          
+          <h3>Prepare Your Adventure</h3>
+          <hr/>
+          <br/>
+          <p>Configure your game settings below. When you are ready, click the K'torigins! button at the bottom.</p>
+          <br/>
+          
+          <p><b>Choose a Character:</b> your character will have a special ability to fend off the hordes.</p>
+          <div id="character-grid">
+            <input type='radio' name='char-select' value='architect' id="char-architect" checked="checked"/><label for="char-architect"></label> 
+          </div>
+          <br/>
+
+          <p><b>Choose a Difficulty:</b> higher difficulty means more zombies that bite harder and faster!</p>
+          <div id="character-grid" class='fant-font'>
+            <input type='radio' name='diff-select' value='ktrivial' id="diff-trivial"/><label for="diff-trivial">I</label> 
+            <input type='radio' name='diff-select' value='ktolerable' id="diff-tolerable" checked="checked"/><label for="diff-tolerable">II</label> 
+            <input type='radio' name='diff-select' value='kterrible' id="diff-terrible"/><label for="diff-terrible">III</label> 
+          </div>
+          <br/>
+          <hr/>
+          <br/>
+          
+          <div id="config-launch-holder">
+            <button id="config-launch" class='fant-font'>K'torigins Awaits...</button>
+          </div>
+        </div>
+        
+      <!-- End lobby -->
+      </div>
+      
+      
+      <!-- GAME -->
+      <div id="game-container" class='fant-font' style="display: none;">
+        
+        <div id="health-cont">
+          <p>HEALTH</p>
+          <progress id="game-health" max="100" value="100"></progress>
+        </div>
+        <div id="round-cont">
+          <h2>Round</h2>
+          <h2 id="game-round">0</h2>
+        </div>
+        <div id="survive-cont">
+          <p>SURVIVE</p>
+          <progress id="game-timer" max="100" value="100"></progress>
+        </div>
+
+        <div id="game-maze"></div>
+        
+      <!-- End game -->
+      </div>
+      
+    <!-- End Wrapper -->
+    </div>
+  </body>
+</html>
