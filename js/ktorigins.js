@@ -223,10 +223,10 @@ configButt.onclick = function () {
 
 class Ktahbject {
   constructor (r, c, game) {
-    r = r;
-    c = c;
-    game = game;
-    health = 100;
+    this.r = r;
+    this.c = c;
+    this.game = game;
+    this.health = 100;
   }
 
   /*
@@ -365,8 +365,9 @@ class Player {
 // ---------------------------------------------------
 
 // TODO Change the Zombie class definition to inherit from Ktahbject
-class Zombie {
+class Zombie extends Ktahbject {
   constructor (r, c, game) {
+    super(r, c, game);
     // TODO Since Zombie is a subclass of Ktahbject, call the superclass'
     // constructor with the same parameters here:
     // ???
