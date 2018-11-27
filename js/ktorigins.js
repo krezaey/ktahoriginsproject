@@ -276,8 +276,10 @@ class Ktahbject {
 // ---------------------------------------------------
 
 // TODO Change the Player class definition to inherit from Ktahbject
-class Player {
+class Player extends Ktahbject {
   constructor (r, c, game) {
+    super (r, c, game);
+
     // TODO Since Player is a subclass of Ktahbject, call the superclass'
     // constructor with the same parameters here:
     // ???
