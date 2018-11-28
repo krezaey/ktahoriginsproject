@@ -237,7 +237,7 @@ class Ktahbject {
     // TODO Create a variable called target that gets the
     // object(s) at the requested row, col
     // [!] see Game's getKtahbjectsAt method
-    // let target = ???;
+    let target = null;
 
     // TODO set a property called facing on this object
     // that is an object with 2 properties: r and c
@@ -256,15 +256,15 @@ class Ktahbject {
     // the target is an empty location; if it is, then
     // we can move to the requested spot; if it isn't, then
     // do nothing!
-    // if ( ??? ) {
-         // Uncomment and leave the following two lines as-is:
-         // this.game.addAt(this, row, col);
-         // this.game.eraseAt(this, this.r, this.c);
+    if ( ??? ) {
+         Uncomment and leave the following two lines as-is:
+         this.game.addAt(this, row, col);
+         this.game.eraseAt(this, this.r, this.c);
 
-         // TODO set this ktahbject's r to row and c to col
-         // ???
-         // ???
-    // }
+         TODO set this ktahbject's r to row and c to col
+         ???
+         ???
+    }
   }
 }
 
@@ -275,15 +275,9 @@ class Ktahbject {
 // state during the game, including its used abilities
 // ---------------------------------------------------
 
-// TODO Change the Player class definition to inherit from Ktahbject
 class Player extends Ktahbject {
   constructor (r, c, game) {
-    super (r, c, game);
-
-    // TODO Since Player is a subclass of Ktahbject, call the superclass'
-    // constructor with the same parameters here:
-    // ???
-
+    super(r, c, game);
     // Leave these lines as-is:
     this.asset = this.character = this.game.character;
     this.facing = {r: -1, c: 0}; // Default: facing up
@@ -370,11 +364,6 @@ class Player extends Ktahbject {
 class Zombie extends Ktahbject {
   constructor (r, c, game) {
     super(r, c, game);
-    // TODO Since Zombie is a subclass of Ktahbject, call the superclass'
-    // constructor with the same parameters here:
-    // ???
-
-    // Leave this line as-is:
     this.asset = "zombie";
   }
 
@@ -431,18 +420,14 @@ class Zombie extends Ktahbject {
 // barriers... can also be used for Architect's walls!
 // ---------------------------------------------------
 
-// TODO Change the Wall class definition to inherit from Ktahbject
-class Wall {
+class Wall extends Ktahobject {
   // [!] Below, permanent is an *optional* parameter, meaning
   // that it will have the value given (true) if the user does
   // not specify it, otherwise, it attains the value of an
   // entered argument; use this parameter to distinguish permanent
   // walls from those constructed by the Architect
   constructor (r, c, game, permanent = true) {
-    // TODO Since Wall extends Ktahbject, call the superclass'
-    // constructor with the same parameters here:
-    // ???
-
+    super(r, c, game);
     // TODO: If the wall is NOT permanent (i.e., was made
     // by the architect) set its health to 5 here
     // ???
@@ -503,7 +488,7 @@ class Game {
     // Important: ktahbjects is an array of arrays of arrays,
     // structured as: ktahbjects[rows][cols][objects]
     this.ktahbjects = [];
-    this.player = null;
+    this.player = new Player(r, c, this);
 
     this.difficulty = config.diff;
     this.character = config.char;
@@ -539,16 +524,17 @@ class Game {
 
             // TODO Create a new Player instance and save it
             // within the game's player property
-            // ???
+            let player = new Player(r, c, this);
 
             // TODO add that newly created player object to the
             // ktahbjects array
-            // [!] this.addAt
+            this.addAt(this.player, r, c);
             break;
           case "Z":
             // TODO Create a new Zombie instance and push it into
             // the game's ktahbjects array, and increments
-            // [!] this.addAt
+            let zombie = new Zombie(r, c, this);
+            this.addAt(zombie, r, c);
             // [!] this.nZoms
             // ???
             this.nZoms++;
@@ -556,7 +542,8 @@ class Game {
           case "X":
             // TODO Create a new Wall instance and push it into
             // the game's ktahbjects array
-            // [!] this.addAt
+            let wall = new Wall(r, c, this, permanent = true);
+            this.addAt(wall, r, c);
             // ???
             break;
         }
