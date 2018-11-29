@@ -294,17 +294,17 @@ class Player extends Ktahbject {
     // TODO reduce this player's health property by the amount
     // decided in the game instance's playerDamage property
     // ???
-
+    this.health -= this.playerDamage;
     // TODO update the health bar with the percentage of the player's
     // remaining health, out of a maximum 100
     // [!] updateHealth(percentage)
     // ???
-
+    updateHealth(this.health);
     // TODO if the player's health is <= 0, then have the game end
     // in defeat
-    // if (???) {
-    //   [!] See Game class methods for how to end the game!
-    // }
+    if (this.health <= 0) {
+      Game.end();
+    }
   }
 
   /*
@@ -344,6 +344,7 @@ class Player extends Ktahbject {
    * 1, but to a min of 0
    */
   act () {
+    this.player.cooldown -= this.cooldown;
     // TODO simple: set this Player's cooldown to
     // the max of 0 and this.cooldown - 1
     // [!] Math.max
