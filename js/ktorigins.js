@@ -6,8 +6,6 @@
  *  Author 2: Keziah Camille Rezaey
  *  UID 2:    946961211
  */
-
-
 // ---------------------------------------------------
 // PAGE ELEMENT CONFIGURATION
 // Store the relevant HTML entities for reference here
@@ -259,9 +257,9 @@ class Ktahbject {
     if (getKtahbjectsAt(row, col) === []) {
          this.game.addAt(this, row, col);
          this.game.eraseAt(this, this.r, this.c);
+         //TODO set this ktahbject's r to row and c to col
          this.r = row;
          this.c = column;
-         //TODO set this ktahbject's r to row and c to col
     }
   }
 }
@@ -303,7 +301,7 @@ class Player extends Ktahbject {
     // TODO if the player's health is <= 0, then have the game end
     // in defeat
     if (this.health <= 0) {
-      Game.end();
+      this.game.end();
     }
   }
 
@@ -322,9 +320,14 @@ class Player extends Ktahbject {
 
           // TODO if there's nothing in objsAtLoc, then it's clear and
           // ready to have a wall placed in it!
+
+
           // if ( ??? )
             // TODO create a new Wall object at the given wallLoc
             // let newWall = new Wall( ??? );
+            if (let newWall = new Wall(this.r, this.c, this.game, permament = true)) {
+              this.game.ktahbjects //help
+            }
 
             // TODO add the newWall to the game's ktahbjects:
             // [!] this.game.ktahbjects
@@ -343,6 +346,7 @@ class Player extends Ktahbject {
    * A player's act on a given tick reduces their cooldown by
    * 1, but to a min of 0
    */
+
   act () {
     this.player.cooldown -= this.cooldown;
     // TODO simple: set this Player's cooldown to
@@ -381,7 +385,7 @@ class Zombie extends Ktahbject {
       // TODO Satisfy act requirement #1:
       // If this Zombie is dead, then remove it from the game,
       // and then return from this function
-      // [!] this.game.eraseAt
+      this.game.eraseAt(this.zombie, this.r, this.c);
       // ???
     }
 
