@@ -5,6 +5,7 @@
  *  UID 1:    951090175
  *  Author 2: Keziah Camille Rezaey
  *  UID 2:    946961211
+ * THINGS TO DO: player movement, respawn and move zombies (consq. player health), abilities
  */
 // ---------------------------------------------------
 // PAGE ELEMENT CONFIGURATION
@@ -235,7 +236,7 @@ class Ktahbject {
     // Create a variable called target that gets the
     // object(s) at the requested row, col
     // [!] see Game's getKtahbjectsAt method
-    let target = getKtahbjectsAt(row, col);
+    let target = this.game.getKtahbjectsAt(row, col);
     this.facing = {r: row - this.r, c: col - this.c};
     // TODO set a property called facing on this object
     // that is an object with 2 properties: r and c
@@ -254,7 +255,7 @@ class Ktahbject {
     // the target is an empty location; if it is, then
     // we can move to the requested spot; if it isn't, then
     // do nothing!
-    if (getKtahbjectsAt(row, col) === []) {
+    if (this.game.getKtahbjectsAt(row, col) === []) {
          this.game.addAt(this, row, col);
          this.game.eraseAt(this, this.r, this.c);
          //set this ktahbject's r to row and c to col
@@ -292,12 +293,12 @@ class Player extends Ktahbject {
     // TODO reduce this player's health property by the amount
     // decided in the game instance's playerDamage property
     // ???
-    this.health -= this.playerDamage;
+    this.health -= this.game.playerDamage;
     // TODO update the health bar with the percentage of the player's
     // remaining health, out of a maximum 100
     // [!] updateHealth(percentage)
     // ???
-    updateHealth(this.health);
+    updateHealth(Math.max(this.health, 100));
     // TODO if the player's health is <= 0, then have the game end
     // in defeat
     if (this.health <= 0) {
@@ -347,8 +348,8 @@ class Player extends Ktahbject {
    * 1, but to a min of 0
    */
 
-  act () { 
-    this.player.cooldown -= this.cooldown;
+  act () {
+    this.cooldown = Math.max(0, (this.cooldown-1));
     // TODO simple: set this Player's cooldown to
     // the max of 0 and this.cooldown - 1
     // [!] Math.max
@@ -411,7 +412,7 @@ class Zombie extends Ktahbject {
     // reach here, then we know the Player is not adjacent to the
     // Zombie, and it is still alive, so move it to the location
     // we made in toMoveTo above
-    // [!] this.moveTo
+    //this.moveTo = this.toMoveTo;
     // ???
   }
 }
@@ -457,7 +458,7 @@ class Wall extends Ktahbject {
     // not permanent
     // ???
     if (this.health <= 0) {
-      this.game.eraseAt;
+      this.game.eraseAt(this.wall, this.r, this.c);
     }
     // TODO if this wall's health is <= 0, then remove
     // it from the game
