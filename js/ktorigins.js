@@ -232,11 +232,11 @@ class Ktahbject {
    * to the one at the given row and col
    */
   moveTo (row, col) {
-    // TODO Create a variable called target that gets the
+    // Create a variable called target that gets the
     // object(s) at the requested row, col
     // [!] see Game's getKtahbjectsAt method
     let target = getKtahbjectsAt(row, col);
-    this.facing = {r: row, c: col};
+    this.facing = {r: row - this.r, c: col - this.c};
     // TODO set a property called facing on this object
     // that is an object with 2 properties: r and c
     // This property represents which way the moved
@@ -250,14 +250,14 @@ class Ktahbject {
     // direction compared to where they're facing
 
 
-    // TODO Only move if the spot is open; check to see if
+    // Only move if the spot is open; check to see if
     // the target is an empty location; if it is, then
     // we can move to the requested spot; if it isn't, then
     // do nothing!
     if (getKtahbjectsAt(row, col) === []) {
          this.game.addAt(this, row, col);
          this.game.eraseAt(this, this.r, this.c);
-         //TODO set this ktahbject's r to row and c to col
+         //set this ktahbject's r to row and c to col
          this.r = row;
          this.c = column;
     }
@@ -325,7 +325,7 @@ class Player extends Ktahbject {
           // if ( ??? )
             // TODO create a new Wall object at the given wallLoc
             // let newWall = new Wall( ??? );
-            if (let newWall = new Wall(this.r, this.c, this.game, permament = true)) {
+            if (newWall = new Wall(this.r, this.c, this.game, permament = true)) {
               this.game.ktahbjects //help
             }
 
@@ -347,7 +347,7 @@ class Player extends Ktahbject {
    * 1, but to a min of 0
    */
 
-  act () {
+  act () { 
     this.player.cooldown -= this.cooldown;
     // TODO simple: set this Player's cooldown to
     // the max of 0 and this.cooldown - 1
@@ -423,7 +423,7 @@ class Zombie extends Ktahbject {
 // barriers... can also be used for Architect's walls!
 // ---------------------------------------------------
 
-class Wall extends Ktahobject {
+class Wall extends Ktahbject {
   // [!] Below, permanent is an *optional* parameter, meaning
   // that it will have the value given (true) if the user does
   // not specify it, otherwise, it attains the value of an
@@ -431,6 +431,9 @@ class Wall extends Ktahobject {
   // walls from those constructed by the Architect
   constructor (r, c, game, permanent = true) {
     super(r, c, game);
+    if (this.permament === false) {
+      this.health = 5;
+    }
     // TODO: If the wall is NOT permanent (i.e., was made
     // by the architect) set its health to 5 here
     // ???
@@ -447,10 +450,15 @@ class Wall extends Ktahobject {
    * if its health is <= 0
    */
   act () {
+    if (this.permanent === false) {
+      this.health-=1;
+    }
     // TODO remove 1 health from this wall IF it is
     // not permanent
     // ???
-
+    if (this.health <= 0) {
+      this.game.eraseAt;
+    }
     // TODO if this wall's health is <= 0, then remove
     // it from the game
     // if ( ??? ) {
@@ -491,7 +499,7 @@ class Game {
     // Important: ktahbjects is an array of arrays of arrays,
     // structured as: ktahbjects[rows][cols][objects]
     this.ktahbjects = [];
-    this.player = new Player(r, c, this);
+    this.player = null;
 
     this.difficulty = config.diff;
     this.character = config.char;
@@ -524,10 +532,9 @@ class Game {
             // We'll track the player separately for
             // convenience, but they'll also be in the
             // ktahbjects array
-
             // TODO Create a new Player instance and save it
             // within the game's player property
-            let player = new Player(r, c, this);
+            this.player = new Player(r, c, this);
 
             // TODO add that newly created player object to the
             // ktahbjects array
@@ -545,7 +552,7 @@ class Game {
           case "X":
             // TODO Create a new Wall instance and push it into
             // the game's ktahbjects array
-            let wall = new Wall(r, c, this, permanent = true);
+            let wall = new Wall(r, c, this);
             this.addAt(wall, r, c);
             // ???
             break;
