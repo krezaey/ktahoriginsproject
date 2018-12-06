@@ -255,12 +255,12 @@ class Ktahbject {
     // the target is an empty location; if it is, then
     // we can move to the requested spot; if it isn't, then
     // do nothing!
-    if (this.game.getKtahbjectsAt(row, col) === []) {
+    if (target.length === 0) {
          this.game.addAt(this, row, col);
          this.game.eraseAt(this, this.r, this.c);
          //set this ktahbject's r to row and c to col
          this.r = row;
-         this.c = column;
+         this.c = col;
     }
   }
 }
@@ -293,17 +293,17 @@ class Player extends Ktahbject {
     // TODO reduce this player's health property by the amount
     // decided in the game instance's playerDamage property
     // ???
-    this.health -= this.game.playerDamage;
-    // TODO update the health bar with the percentage of the player's
-    // remaining health, out of a maximum 100
-    // [!] updateHealth(percentage)
-    // ???
-    updateHealth(Math.max(this.health, 100));
-    // TODO if the player's health is <= 0, then have the game end
-    // in defeat
-    if (this.health <= 0) {
-      this.game.end();
-    }
+    // this.health -= this.game.playerDamage;
+    // // TODO update the health bar with the percentage of the player's
+    // // remaining health, out of a maximum 100
+    // // [!] updateHealth(percentage)
+    // // ???
+    // updateHealth(Math.max(this.health, 100));
+    // // TODO if the player's health is <= 0, then have the game end
+    // // in defeat
+    // if (this.health <= 0) {
+    //   this.game.end();
+    // }
   }
 
   /*
@@ -326,9 +326,9 @@ class Player extends Ktahbject {
           // if ( ??? )
             // TODO create a new Wall object at the given wallLoc
             // let newWall = new Wall( ??? );
-            if (newWall = new Wall(this.r, this.c, this.game, permament = true)) {
-              this.game.ktahbjects //help
-            }
+            // if (newWall = new Wall(this.r, this.c, this.game, permament = true)) {
+            //   this.game.ktahbjects //help
+            // }
 
             // TODO add the newWall to the game's ktahbjects:
             // [!] this.game.ktahbjects
@@ -583,6 +583,7 @@ class Game {
    * useful for moving ktahbjects from one location to another
    * when you know their origin.
    */
+
   eraseAt (ktahbject, row, col) {
     let index = this.ktahbjects[row][col].indexOf(ktahbject);
     if (index !== -1) {
