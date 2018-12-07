@@ -347,7 +347,6 @@ class Player extends Ktahbject {
    */
 
   act () {
-    this.cooldown = -1;
     this.cooldown = Math.max(0, (this.cooldown-1));
     // TODO simple: set this Player's cooldown to
     // the max of 0 and this.cooldown - 1
@@ -435,11 +434,11 @@ class Wall extends Ktahbject {
     }
     // TODO: If the wall is NOT permanent (i.e., was made
     // by the architect) set its health to 5 here
-    // ???
-
+    // ??
     // Leave these lines as-is:
     this.asset = "wall";
     this.permanent = permanent;
+
   }
 
   /*
@@ -449,7 +448,7 @@ class Wall extends Ktahbject {
    * if its health is <= 0
    */
   act () {
-    if (this.permanent === false) {
+    if (permanent === false) {
       this.health-=1;
     }
     // TODO remove 1 health from this wall IF it is
