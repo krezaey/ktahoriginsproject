@@ -5,7 +5,7 @@
  *  UID 1:    951090175
  *  Author 2: Keziah Camille Rezaey
  *  UID 2:    946961211
- * THINGS TO DO: player movement, respawn and move zombies (consq. player health), abilities
+ * THINGS TO DO: zombies and health
  */
 // ---------------------------------------------------
 // PAGE ELEMENT CONFIGURATION
