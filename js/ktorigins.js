@@ -383,7 +383,7 @@ class Zombie extends Ktahbject {
       // TODO Satisfy act requirement #1:
       // If this Zombie is dead, then remove it from the game,
       // and then return from this function
-      this.game.eraseAt(this.zombie, this.r, this.c)
+      this.game.eraseAt(this, this.r, this.c)
       return;
       // ???
     }
@@ -405,11 +405,11 @@ class Zombie extends Ktahbject {
     // [!] this.game.player.getEaten
     // [!] activeP5.dist  // p5's dist method!
     // ??? (this will be an if statement with stuff inside)
-    if (activep5.dist(r, c, this.game.player.r, this.game.player.c) <= 1) {
+    if (activeP5.dist(r, c, this.game.player.r, this.game.player.c) <= 1) {
        this.game.player.getEaten()
     }
 
-    this.moveTo(this.toMoveTo.r,this.toMoveTo.c);
+    this.moveTo(toMoveTo.r,toMoveTo.c);
 
 
 
