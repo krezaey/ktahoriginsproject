@@ -57,7 +57,7 @@ let lobbyCont  = document.querySelector("#lobby-container"),
     ],
     // Size of each cell rendered by p5; shrink to make
     // larger maps fit on the screen!
-    cellDims = 60;
+    cellDims = 40;
 
 
 // ---------------------------------------------------
@@ -293,17 +293,17 @@ class Player extends Ktahbject {
     // TODO reduce this player's health property by the amount
     // decided in the game instance's playerDamage property
     // ???
-    // this.health -= this.game.playerDamage;
+    this.health -= this.game.playerDamage;
     // // TODO update the health bar with the percentage of the player's
     // // remaining health, out of a maximum 100
     // // [!] updateHealth(percentage)
     // // ???
-    // updateHealth(Math.max(this.health, 100));
+    updateHealth(this.health / 100);
     // // TODO if the player's health is <= 0, then have the game end
     // // in defeat
-    // if (this.health <= 0) {
-    //   this.game.end();
-    // }
+    if (this.health <= 0) {
+      this.game.end();
+    }
   }
 
   /*
@@ -383,7 +383,8 @@ class Zombie extends Ktahbject {
       // TODO Satisfy act requirement #1:
       // If this Zombie is dead, then remove it from the game,
       // and then return from this function
-      this.game.eraseAt(this.zombie, this.r, this.c);
+      this.game.eraseAt(this.zombie, this.r, this.c)
+      return;
       // ???
     }
 
@@ -404,6 +405,13 @@ class Zombie extends Ktahbject {
     // [!] this.game.player.getEaten
     // [!] activeP5.dist  // p5's dist method!
     // ??? (this will be an if statement with stuff inside)
+    if (activep5.dist(r, c, this.game.player.r, this.game.player.c) <= 1) {
+       this.game.player.getEaten()
+    }
+
+    this.moveTo(this.toMoveTo.r,this.toMoveTo.c);
+
+
 
     // TODO Satisfy act requirement #3: move the Zombie. If we
     // reach here, then we know the Player is not adjacent to the
@@ -429,7 +437,8 @@ class Wall extends Ktahbject {
   // walls from those constructed by the Architect
   constructor (r, c, game, permanent = true) {
     super(r, c, game);
-    if (this.permament === false) {
+    this.permanent = permanent;
+    if (this.permanent === false) {
       this.health = 5;
     }
     // TODO: If the wall is NOT permanent (i.e., was made
@@ -437,7 +446,7 @@ class Wall extends Ktahbject {
     // ??
     // Leave these lines as-is:
     this.asset = "wall";
-    this.permanent = permanent;
+
 
   }
 
@@ -448,7 +457,7 @@ class Wall extends Ktahbject {
    * if its health is <= 0
    */
   act () {
-    if (permanent === false) {
+    if (this.permanent === false) {
       this.health-=1;
     }
     // TODO remove 1 health from this wall IF it is
