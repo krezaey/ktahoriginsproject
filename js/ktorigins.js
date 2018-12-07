@@ -323,20 +323,18 @@ class Player extends Ktahbject {
           // ready to have a wall placed in it!
 
 
-          // if ( ??? )
-            // TODO create a new Wall object at the given wallLoc
-            // let newWall = new Wall( ??? );
-            // if (newWall = new Wall(this.r, this.c, this.game, permament = true)) {
-            //   this.game.ktahbjects //help
-            // }
+           if (objsAtLoc.length === 0) {
+            //TODO create a new Wall object at the given wallLoc
+            let newWall = new Wall(wallLoc.r, wallLoc.c, this.game, false);
+            this.game.addAt(newWall, wallLoc.r, wallLoc.c);
 
             // TODO add the newWall to the game's ktahbjects:
             // [!] this.game.ktahbjects
             // ???
 
             // Uncomment, then leave this line as-is:
-            // triggerCooldown = true;
-          // }
+            triggerCooldown = true;
+          }
           break;
       }
     }
@@ -349,11 +347,11 @@ class Player extends Ktahbject {
    */
 
   act () {
+    this.cooldown = -1;
     this.cooldown = Math.max(0, (this.cooldown-1));
     // TODO simple: set this Player's cooldown to
     // the max of 0 and this.cooldown - 1
     // [!] Math.max
-    // this.cooldown = ???;
   }
 }
 
@@ -458,13 +456,10 @@ class Wall extends Ktahbject {
     // not permanent
     // ???
     if (this.health <= 0) {
-      this.game.eraseAt(this.wall, this.r, this.c);
+      this.game.eraseAt(this, this.r, this.c);
     }
     // TODO if this wall's health is <= 0, then remove
     // it from the game
-    // if ( ??? ) {
-      // [!] this.game.eraseAt
-    // }
   }
 }
 
