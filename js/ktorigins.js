@@ -5,7 +5,7 @@
  *  UID 1:    951090175
  *  Author 2: Keziah Camille Rezaey
  *  UID 2:    946961211
- * THINGS TO DO: zombies and health
+ * THINGS TO DO: zombies respawn
  */
 // ---------------------------------------------------
 // PAGE ELEMENT CONFIGURATION
@@ -57,7 +57,7 @@ let lobbyCont  = document.querySelector("#lobby-container"),
     ],
     // Size of each cell rendered by p5; shrink to make
     // larger maps fit on the screen!
-    cellDims = 40;
+    cellDims = 60;
 
 
 // ---------------------------------------------------
@@ -409,7 +409,7 @@ class Zombie extends Ktahbject {
        this.game.player.getEaten()
     }
 
-    this.moveTo(toMoveTo.r,toMoveTo.c);
+
 
 
 
@@ -419,6 +419,7 @@ class Zombie extends Ktahbject {
     // we made in toMoveTo above
     //this.moveTo = this.toMoveTo;
     // ???
+    this.moveTo(toMoveTo.r,toMoveTo.c);
   }
 }
 
@@ -666,6 +667,16 @@ class Game {
     // Dramatic delay before next round
     setTimeout(() => {
       message = "";
+      for (let i=0; i < this.nZoms; i++) {
+        let randRow = Math.floor(Math.random() * this.rows),
+            randCol = Math.floor(Math.random() * this.cols);
+        if (this.getKtahbjectsAt(randRow, randCol).length === 0) {
+          this.addAt((new Zombie(randRow, randCol, this)), randRow, randCol);
+        }
+        else {
+          i--;
+        }
+      }
       // TODO: Respawn this.nZoms in random locations
       // around the map -- the shock factor that only
       // K'tah! can deliver
