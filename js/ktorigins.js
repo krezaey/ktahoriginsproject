@@ -5,7 +5,6 @@
  *  UID 1:    951090175
  *  Author 2: Keziah Camille Rezaey
  *  UID 2:    946961211
- * THINGS TO DO: zombies respawn
  */
 // ---------------------------------------------------
 // PAGE ELEMENT CONFIGURATION
@@ -57,7 +56,7 @@ let lobbyCont  = document.querySelector("#lobby-container"),
     ],
     // Size of each cell rendered by p5; shrink to make
     // larger maps fit on the screen!
-    cellDims = 60;
+    cellDims = 50;
 
 
 // ---------------------------------------------------
