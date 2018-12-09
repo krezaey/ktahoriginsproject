@@ -144,7 +144,7 @@ input[type=radio]:checked + label {
   display: grid;
   margin-top: 50px;
   grid-template-columns: [game-col-beg] 2fr [game-health] 3fr [game-round] 1fr [game-timer] 3fr [menu-end] 2fr [game-col-end];
-  grid-template-rows: [game-row-beg] 2fr [game-stats] 1fr [game-maze-beg] auto [game-maze-end] 2fr [game-row-end];
+  grid-template-rows: [game-row-beg] 2fr [game-stats] 1fr [game-stats2] 1fr [game-maze-beg] auto [game-maze-end] 2fr [game-row-end];
 	text-align: center;
   color: white;
   font-size: 150%;
@@ -171,6 +171,24 @@ progress {
   grid-column: game-health / game-round;
   grid-row: game-stats / game-row-beg;
   text-align: left;
+}
+
+#abilityCool-cont {
+  grid-column: game-health / game-round;
+  grid-row: game-stats / game-stats2;
+  text-align: left;
+}
+
+#character {
+  grid-column: game-round / game-timer;
+  grid-row: game-stats / game-stats2;
+  text-align: center;
+}
+
+#score {
+  grid-column: game-timer / round-end;
+  grid-row: game-stats / game-stats2;
+  text-align: center;
 }
 
 #game-maze {

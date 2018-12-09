@@ -26,6 +26,8 @@ let lobbyCont  = document.querySelector("#lobby-container"),
     healthLeft = document.querySelector("#game-health"),
     currRound  = document.querySelector("#game-round"),
     mazeCont   = document.querySelector("#game-maze"),
+    abilityCool = document.querySelector("#ability-timer"),
+    score = document.querySelector("#score-count").innerHTML,
 
     // Any relative paths to game assets, including images,
     // sounds, etc.
@@ -62,7 +64,8 @@ let lobbyCont  = document.querySelector("#lobby-container"),
     ],
     // Size of each cell rendered by p5; shrink to make
     // larger maps fit on the screen!
-    cellDims = 50;
+    cellDims = 50,
+    scoreCount;
 
 
 // ---------------------------------------------------
