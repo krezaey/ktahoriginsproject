@@ -33,6 +33,11 @@ let lobbyCont  = document.querySelector("#lobby-container"),
         architect: "./assets/images/architect.png",
         zombie: "./assets/images/zombie.png",
         wall: "./assets/images/wall.png"
+      },
+      sounds: {
+        eaten: new Audio("./assets/sounds/eatingpickles.mp3"),
+        dead: new Audio("./assets/sounds/dead.mp3"),
+        soundtrack: new Audio("./assets/sounds/soundtrack.mp3")
       }
     },
 
@@ -143,6 +148,7 @@ function updateRound (round) {
 }
 
 function endGame () {
+  playSound(assets.sounds.dead, false);
   gameCont.style.display = "none";
   lobbyCont.style.display = "";
   mazeCont.innerHTML = "";
@@ -178,6 +184,18 @@ function removePlayerKeys () {
   document.removeEventListener("keypress", _key_listener);
 }
 
+function playSound(sound, loopCondition) {
+  if (typeof sound.loop == 'boolean') {
+      sound.loop = loopCondition;
+  }
+  else {
+      sound.addEventListener('ended', function() {
+          this.currentTime = 0;
+          this.play();
+      }, false);
+  }
+  sound.play();
+}
 
 // ---------------------------------------------------
 // LOBBY CONFIGURATION
@@ -190,6 +208,7 @@ function initGame (config) {
   activeGame = new Game(config);
   activeP5 = new p5(setupP5, "game-maze");
   endGameLoad();
+  playSound(assets.sounds.soundtrack, true);
 };
 
 // Configure the launch button below:
@@ -298,6 +317,7 @@ class Player extends Ktahbject {
     // // [!] updateHealth(percentage)
     // // ???
     updateHealth(this.health / 100);
+    playSound(assets.sounds.eaten, false);
     // // TODO if the player's health is <= 0, then have the game end
     // // in defeat
     if (this.health <= 0) {
