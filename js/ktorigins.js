@@ -27,7 +27,13 @@ let lobbyCont  = document.querySelector("#lobby-container"),
     currRound  = document.querySelector("#game-round"),
     mazeCont   = document.querySelector("#game-maze"),
     abilityCool = document.querySelector("#ability-timer"),
-    score = document.querySelector("#score-count").innerHTML,
+    score = {
+      count: 0,
+      report: document.querySelector("#score-count").innerHTML,
+      increase: 10,
+      diffBonusTwo: 2,
+      diffBonusThree: 5
+    },
 
     // Any relative paths to game assets, including images,
     // sounds, etc.
@@ -64,8 +70,7 @@ let lobbyCont  = document.querySelector("#lobby-container"),
     ],
     // Size of each cell rendered by p5; shrink to make
     // larger maps fit on the screen!
-    cellDims = 50,
-    scoreCount;
+    cellDims = 50;
 
 
 // ---------------------------------------------------
@@ -132,6 +137,7 @@ function beginGameLoad () {
   mazeCont.innerHTML = "";
   timeLeft.value = 100;
   healthLeft.value = 100;
+  abilityCool.value = 100;
 }
 
 function endGameLoad () {
@@ -149,6 +155,10 @@ function updateTimer (percentage) {
 
 function updateRound (round) {
   currRound.innerHTML = round;
+}
+
+function updateCooldown(percentage) {
+  abilityCool.value = percentage / 100);
 }
 
 function endGame () {
@@ -371,6 +381,7 @@ class Player extends Ktahbject {
 
   act () {
     this.cooldown = Math.max(0, (this.cooldown-1));
+    updateCooldown(this.cooldown);
     // simple: set this Player's cooldown to
     // the max of 0 and this.cooldown - 1
     // [!] Math.max
@@ -535,6 +546,8 @@ class Game {
     this.cols = maze[0].length;
     this.round = 0;
     this.nZoms = 0;
+    // this.score = score.count;
+    // this.scoreReport = score.report.innerHTML;
 
     // Save the amount of damage a player takes from
     // getting eaten, the length of a tick, and the
@@ -670,6 +683,8 @@ class Game {
     if (this.surviveTime <= 0) {
       this.nextRound();
     }
+    // this.score += score.increase;
+    // this.scoreReport = `Score: ${this.score}`;
   }
 
   /*

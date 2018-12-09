@@ -3,8 +3,22 @@ UID 1:    946961211
 Author 2: Michael Elias
 UID 2:    951090175
 
-Feature #1: Soundtrack Sound (via playSound function)
-Feature #2: Getting Eaten Sound (via playSound function)
-Feature #3: "You are now dead!" Sound (via playSound function)
+Feature #1: Soundtrack Sound (via playSound function in interface)
+Feature #2: Getting Eaten Sound (via playSound function in interface)
+Feature #3: "You are now dead!" Sound (via playSound function in interface)
+TODO
 Feature #4: Ability bar tracks the cooldown for character abilities
+ - figure out the math behind the cooldown bar
+ - add functions to the interface section for updating the cooldown meter
+ - modify the player's act to update the cooldown meter
 Feature #5: Score count displays and updates current score
+ - adjust query Selectors
+ - modify the game class to keep track of the score and increase with every tick, also report in the game's end message
+Feature #6: Add character #1, #2
+ - modify the lobby's character selection to add the classes
+ - add new character ability (modify player useAbility method)
+Feature #7: Player indication in game stats
+ - update player when new player added
+Feature #8: Allow players to use custom mazes
+ - modify HTML / CSS to create new text area
+ - modify the launch button's event handler to create a new game instance with the user-specified maze
