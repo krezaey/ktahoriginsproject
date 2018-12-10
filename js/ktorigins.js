@@ -218,11 +218,11 @@ function playSound(sound, loopCondition) {
 
 // Configure the game initialization
 function initGame (config) {
+  playSound(assets.sounds.soundtrack, true);
   beginGameLoad();
   activeGame = new Game(config);
   activeP5 = new p5(setupP5, "game-maze");
   endGameLoad();
-  playSound(assets.sounds.soundtrack, true);
 };
 
 // Configure the launch button below:
@@ -555,7 +555,7 @@ class Game {
     diffMultiplier    = diffs.indexOf(this.difficulty);
     this.playerDamage = (diffMultiplier + 2) * 5;
     this.cooldown     = (diffMultiplier + 2) * 3;
-    this.tickLength   = (3 - diffMultiplier) * 200 + 500;
+    this.tickLength   = (1.05 - diffMultiplier) * 200 + 500;
     this.surviveTime  = (diffMultiplier + 1) * 15 + 10;
     this.timerMax     = this.surviveTime;
 
