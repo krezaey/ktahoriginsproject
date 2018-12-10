@@ -158,7 +158,7 @@ function updateRound (round) {
 }
 
 function updateCooldown(percentage) {
-  abilityCool.value = percentage / 100);
+  abilityCool.value = percentage / 100;
 }
 
 function endGame () {
