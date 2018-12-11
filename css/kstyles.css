@@ -191,6 +191,10 @@ progress {
   text-align: center;
 }
 
+#score-info {
+  font-size: 15px;
+}
+
 #game-maze {
   grid-column: game-health / menu-end;
   grid-row: game-maze-beg / game-maze-end;

@@ -27,13 +27,8 @@ let lobbyCont  = document.querySelector("#lobby-container"),
     currRound  = document.querySelector("#game-round"),
     mazeCont   = document.querySelector("#game-maze"),
     abilityCool = document.querySelector("#ability-timer"),
-    score = {
-      count: 0,
-      report: document.querySelector("#score-count").innerHTML,
-      increase: 10,
-      diffBonusTwo: 2,
-      diffBonusThree: 5
-    },
+    scoreReport = document.querySelector("#score-count"),
+    scoreInfo = document.querySelector("#score-info"),
 
     // Any relative paths to game assets, including images,
     // sounds, etc.
@@ -54,6 +49,7 @@ let lobbyCont  = document.querySelector("#lobby-container"),
     activeGame,
     activeP5,
     message,
+    scoreCount,
 
     // Default maze in the case where there is no user-
     // specifiable arena
@@ -138,6 +134,7 @@ function beginGameLoad () {
   timeLeft.value = 100;
   healthLeft.value = 100;
   abilityCool.value = 100;
+  score.count = 0;
 }
 
 function endGameLoad () {
@@ -166,6 +163,7 @@ function endGame () {
   gameCont.style.display = "none";
   lobbyCont.style.display = "";
   mazeCont.innerHTML = "";
+  scoreCount = 0;
 }
 
 function _key_listener (event) {
@@ -223,6 +221,7 @@ function initGame (config) {
   activeGame = new Game(config);
   activeP5 = new p5(setupP5, "game-maze");
   endGameLoad();
+  scoreCount = 0;
 };
 
 // Configure the launch button below:
@@ -381,7 +380,12 @@ class Player extends Ktahbject {
 
   act () {
     this.cooldown = Math.max(0, (this.cooldown-1));
-    updateCooldown(this.cooldown / this.game.cooldown);
+    if (this.cooldown > 0 && this.cooldown < 100) {
+      updateCooldown(this.cooldown / this.game.cooldown);
+    }
+    else {
+      updateCooldown(10);
+    }
     // simple: set this Player's cooldown to
     // the max of 0 and this.cooldown - 1
     // [!] Math.max
@@ -546,8 +550,6 @@ class Game {
     this.cols = maze[0].length;
     this.round = 0;
     this.nZoms = 0;
-    // this.score = score.count;
-    // this.scoreReport = score.report.innerHTML;
 
     // Save the amount of damage a player takes from
     // getting eaten, the length of a tick, and the
@@ -555,7 +557,7 @@ class Game {
     diffMultiplier    = diffs.indexOf(this.difficulty);
     this.playerDamage = (diffMultiplier + 2) * 5;
     this.cooldown     = (diffMultiplier + 2) * 3;
-    this.tickLength   = (1.05 - diffMultiplier) * 200 + 500;
+    this.tickLength   = (3 - diffMultiplier) * 200 + 500;
     this.surviveTime  = (diffMultiplier + 1) * 15 + 10;
     this.timerMax     = this.surviveTime;
 
@@ -609,6 +611,18 @@ class Game {
     this.ticking = setInterval(function () { game.doTick(); }, this.tickLength);
   }
 
+  //function that increases score based on round and diff level
+  increaseScore(round) {
+    let bonus = null;
+    switch (this.difficulty) {
+      case "ktrivial": bonus = 0; break;
+      case "ktolerable": bonus = 2; break;
+      case "kterrible": bonus = 5; break;
+    }
+    scoreCount += (10 + round + bonus);
+    scoreReport.innerHTML = `Score: ${scoreCount}`;
+    scoreInfo.innerHTML = `+${this.round} for round and +${bonus} for ${this.difficulty} difficulty`;
+  }
   /*
    * Adds the given ktahbject to the maze in the position specified;
    * useful for moving ktahbjects from one location to another,
@@ -683,8 +697,7 @@ class Game {
     if (this.surviveTime <= 0) {
       this.nextRound();
     }
-    // this.score += score.increase;
-    // this.scoreReport = `Score: ${this.score}`;
+    this.increaseScore(this.round);
   }
 
   /*
@@ -729,7 +742,7 @@ class Game {
   end () {
     removePlayerKeys();
     clearInterval(this.ticking);
-    alert(`K'tah claims another victim...\n You survived ${this.round} rounds.`);
+    alert(`K'tah claims another victim...\n You survived ${this.round} rounds. \n Score: ${scoreCount}`);
     endGame();
   }
 
