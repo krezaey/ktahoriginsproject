@@ -742,7 +742,7 @@ class Game {
   end () {
     removePlayerKeys();
     clearInterval(this.ticking);
-    alert(`K'tah claims another victim...\n You survived ${this.round} rounds. \n Score: ${scoreCount}`);
+    alert(`K'tah claims another victim...\n You survived ${this.round} rounds and scored ${scoreCount} points.`);
     endGame();
   }
 
