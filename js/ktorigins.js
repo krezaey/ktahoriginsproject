@@ -158,7 +158,7 @@ function updateRound (round) {
 }
 
 function updateCooldown(percentage) {
-  abilityCool.value = percentage / 100;
+  abilityCool.value = Math.floor(percentage * 100);
 }
 
 function endGame () {
@@ -381,7 +381,7 @@ class Player extends Ktahbject {
 
   act () {
     this.cooldown = Math.max(0, (this.cooldown-1));
-    updateCooldown(this.cooldown);
+    updateCooldown(this.cooldown / this.game.cooldown);
     // simple: set this Player's cooldown to
     // the max of 0 and this.cooldown - 1
     // [!] Math.max

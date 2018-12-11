@@ -8,7 +8,6 @@ Feature #2: Getting Eaten Sound (via playSound function in interface)
 Feature #3: "You are now dead!" Sound (via playSound function in interface)
 TODO
 Feature #4: Ability bar tracks the cooldown for character abilities
- - figure out the math behind the cooldown bar
  - add functions to the interface section for updating the cooldown meter
  - modify the player's act to update the cooldown meter
 Feature #5: Score count displays and updates current score
