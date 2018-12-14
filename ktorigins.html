@@ -52,6 +52,22 @@ UID 2:    951090175 -->
           </div>
           <br/>
 
+          <p><b>Make a custom maze: </b> your maze will generated based off the following layout. (When deleting something, be sure to replace the deleted element).</p>
+          <p> 'P': player, 'X': walls, '.': spaces, 'Z': zombies </p>
+          <div id="map-grid">
+            <textarea name="customMaze" rows="10" cols="14">
+XXXXXXXXXXXXX
+XZ....X....ZX
+X...........X
+X...X...X...X
+X.....P.....X
+X...X...X...X
+X...........X
+XZ....X....ZX
+XXXXXXXXXXXXX</textarea>
+          </div>
+          <br/>
+
           <p><b>Choose a Difficulty:</b> higher difficulty means more zombies that bite harder and faster!</p>
           <div id="character-grid" class='fant-font'>
             <input type='radio' name='diff-select' value='ktrivial' id="diff-trivial"/><label for="diff-trivial">I</label>

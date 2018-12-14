@@ -20,6 +20,7 @@ let lobbyCont  = document.querySelector("#lobby-container"),
     configButt = document.querySelector("#config-launch"),
     charSelect = "[name=char-select]:checked",
     diffSelect = "[name=diff-select]:checked",
+    mazeSelect = "[name=customMaze]",
 
     // Game Selectors
     timeLeft   = document.querySelector("#game-timer"),
@@ -64,6 +65,7 @@ let lobbyCont  = document.querySelector("#lobby-container"),
       "XZ....X....ZX",
       "XXXXXXXXXXXXX"
     ],
+
     // Size of each cell rendered by p5; shrink to make
     // larger maps fit on the screen!
     cellDims = 50;
@@ -226,7 +228,7 @@ function initGame (config) {
 
 // Configure the launch button below:
 configButt.onclick = function () {
-  let maze = campaignMaze,
+  let maze = document.querySelector(mazeSelect).value.split("\n"),
       character = document.querySelector(charSelect).value,
       difficulty = document.querySelector(diffSelect).value;
 
